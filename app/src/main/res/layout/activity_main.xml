@@ -16,7 +16,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/movePanel"
         android:layout_gravity="center"
-        >
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <Button
             android:layout_width="50sp"
@@ -55,11 +56,12 @@
             android:onClick="MenuButton"/>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
             android:text="SELECT"
             android:id="@+id/buttonSelect"
-            android:onClick="SelectButton"/>
+            android:onClick="SelectButton"
+            android:longClickable="true"/>
 
         <Button
             android:layout_width="wrap_content"
