@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         //INITILIZE DE LA IMAGEN PARA DETCET BUTTONS
 
-        ImageView iv = (ImageView) findViewById (R.id.image);
+        ImageView iv = (ImageView) findViewById (R.id.imageoldmando);
         if (iv != null) {
             iv.setOnTouchListener (this);
         }
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int nextImage = -1;			// TODO posible usar para efecto irda ?¿?¿resource id of the next image to display
 
         // If we cannot find the imageView, return.
-        ImageView imageView = (ImageView) v.findViewById (R.id.image);
+        ImageView imageView = (ImageView) v.findViewById (R.id.imageoldmando);
         if (imageView == null) return false;
 
         // When the action is Down, see if we should show the "pressed" image for the default image.
@@ -217,6 +217,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 // The colors are red, blue, and yellow.
                 // Use image_areas to determine which region the user touched.
                 int touchColor = getHotspotColor (R.id.image_areas, evX, evY);
+
+                //si es transparente lo ignora:
+
+                if (touchColor==Color.TRANSPARENT){
+                    return false;
+                }
 
                 // Compare the touchColor to the expected values. Switch to a different image, depending on what color was touched.
                 // Note that we use a Color Tool object to test whether the observed color is close enough to the real color to
@@ -257,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     Log.d("INFO", "pulsado play/pause");
                 }
 
-                else if (ct.closeMatch (Color.MAGENTA, touchColor, tolerance))
+                else if (ct.closeMatch (Color.argb(1,255,64,255), touchColor, tolerance))//este es el color que detecta en vez del magenta..
                 {
                     //TODO nextImage = R.drawable.p2_ship_default;
                     Log.d("INFO", "pulsado menu");
@@ -304,7 +310,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             if (hotspots == null) {
                 Log.d ("ImageAreasActivity", "Hot spot bitmap was not created");
                 return 0;
-            } else {
+            }
+
+            else {
                 img.setDrawingCacheEnabled(false);
                 return hotspots.getPixel(x, y);
             }
