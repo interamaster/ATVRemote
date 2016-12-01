@@ -1,15 +1,22 @@
 package com.mio.jrdv.atvremote;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.hardware.ConsumerIrManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -21,6 +28,19 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     ConsumerIrManager mCIR ;
     private SparseArray<String> irData;
 
+    //para el sonido del CODIGO
+    private MediaPlayer mp;
+
+
+    //para el long press
+    boolean longpressed=false;
+
+    //apar cambiar imagen fondo
+
+    ImageView imagenfondo;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,21 +48,24 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         //initializae:
 
-           mCIR = (ConsumerIrManager)getSystemService(CONSUMER_IR_SERVICE);
+        mCIR = (ConsumerIrManager) getSystemService(CONSUMER_IR_SERVICE);
 
-        Log.e("INFO","mCIR.hasIrEmitter(): " + mCIR.hasIrEmitter());
+        Log.e("INFO", "mCIR.hasIrEmitter(): " + mCIR.hasIrEmitter());
         PackageManager pm = getPackageManager();
-        Log.e("INFO","pm.hasSystemFeature(PackageManager.FEATURE_CONSUMER_IR): " +
+        Log.e("INFO", "pm.hasSystemFeature(PackageManager.FEATURE_CONSUMER_IR): " +
                 pm.hasSystemFeature(PackageManager.FEATURE_CONSUMER_IR));
 
 
         //INITILIZE DE LA IMAGEN PARA DETCET BUTTONS
 
-        ImageView iv = (ImageView) findViewById (R.id.imageoldmando);
-        if (iv != null) {
-            iv.setOnTouchListener (this);
+          imagenfondo = (ImageView) findViewById(R.id.imageoldmando);
+        if (imagenfondo != null) {
+            imagenfondo.setOnTouchListener(this);
         }
 
+        //initializa el sonido
+        int sonidomp3 = getResourceID("click", "raw", getApplicationContext());
+        mp = MediaPlayer.create(MainActivity.this, sonidomp3);
 
         //rellenamos los valores de cada button
 
@@ -77,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         irData.put(
                 R.id.buttonPlay,
                 count2duration(hex2dec("0000 006E 0022 0002 0155 00AC 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0060 0016 0016 0016")));
-                       
 
 
         //añdimo el longclick listener al select button
@@ -85,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         irData.put(
                 0,
-                count2duration(hex2dec("0000 006D 0000 0044 0157 00AC 0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0016 0015 0016 0015 0016 0015 0016 0015 0041 0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40" )));
+                count2duration(hex2dec("0000 006D 0000 0044 0157 00AC 0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0016 0015 0016 0015 0016 0015 0016 0015 0041 0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40")));
 
 
 
@@ -119,7 +141,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
          */
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -163,11 +184,25 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 */
 
+
+    }
+
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////// ///////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    }
+    //Put this into the class
+    final Handler handler = new Handler();
+    Runnable mLongPressed = new Runnable() {
+        public void run() {
+            longpressed = true;
+            //TODO Code for long click
+            Log.d("INFO","iniciado longpress!!");
+
+        }
+    };
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////touch listener///////////////////////////////////////////////////////////
@@ -200,6 +235,40 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         switch (action) {
             case MotionEvent.ACTION_DOWN :
+
+
+
+
+
+
+                int touchColor2 = getHotspotColor (R.id.image_areas, evX, evY);
+
+                if (touchColor2!=Color.TRANSPARENT){
+
+                    //solo si no es un pubnto transparent3e suenna y empieza el delay dellong press
+
+                 //SONIDO AL PULSAR:
+
+                    SuenaClick();
+
+
+                    ColorTool ct = new ColorTool ();
+                    int tolerance = 25;
+
+                     if (ct.closeMatch (Color.WHITE, touchColor2, tolerance))//este es el color que detecta en vez del magenta..
+                    {
+                        //TODO nextImage = R.drawable.p2_ship_default;
+                        Log.d("INFO", "Se pulso SELECT/play/pause...iniciado el timer para long press:");
+                        //inicio le detecatr long press si es mas de 1 seg es long press
+                        handler.postDelayed(mLongPressed, 100);;
+
+
+                    }
+                }
+
+
+
+
                 if (currentResource == R.drawable.remote_orig_2) {
                     //TODO nextImage = R.drawable.p2_ship_pressed;
                     handledHere = true;
@@ -216,7 +285,16 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 // The hidden image (image_areas) has three different hotspots on it.
                 // The colors are red, blue, and yellow.
                 // Use image_areas to determine which region the user touched.
+
+
                 int touchColor = getHotspotColor (R.id.image_areas, evX, evY);
+
+
+                //se anula el longpress a levantar el deo
+
+                handler.removeCallbacks(mLongPressed);
+
+                //code 4 single click:
 
                 //si es transparente lo ignora:
 
@@ -260,7 +338,21 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 {
                     //TODO nextImage = R.drawable.p2_ship_default;
 
-                    Log.d("INFO", "pulsado play/pause");
+                    if (!longpressed){
+                        //veiamos deun longpressed no ejectuamos el manda la seq de SELECT!!
+                        Log.d("INFO", "pulsado play/pause");
+                        //lo pnemos de nuevo a false para detectar nuvo longpress
+                        longpressed=false;
+                    }
+
+
+                    else {
+                        Log.d("INFO", "NO SE PROCEDE A SELECT/PLAY/PAUSE POR VENOR DE LONGPRESS");
+
+                        //pero al sltar de nuevo lo poenos a
+                        longpressed=false;
+                    }
+
                 }
 
                 else if (ct.closeMatch (Color.argb(1,255,64,255), touchColor, tolerance))//este es el color que detecta en vez del magenta..
@@ -320,8 +412,45 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////CLICK SOUNDS//////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void SuenaClick() {
+
+       // int sonidomp3 = getResourceID("click", "raw", getApplicationContext());
+       // mp = MediaPlayer.create(MainActivity.this, sonidomp3);
+        //iiciado en oncreate
+        mp.start();
+
+        //y de propian vibra:
+
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
+    }
+
+
+    protected final static int getResourceID (final String resName, final String resType, final Context ctx) {
+        final int ResourceID = ctx.getResources().getIdentifier(resName, resType, ctx.getApplicationInfo().packageName);
+        if (ResourceID == 0) {
+
+
+            //en vez de una excepcion que lo ponga en el log solo
+
+            Log.e("INFO", "ojo no existe el resource: " + resName);
+            return 0;
+
+
+        } else {
+            return ResourceID;
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////CONVERTER DE HEX A INT DE INT A STRING//////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
     protected String hex2dec(String irData) {
         List<String> list = new ArrayList<String>(Arrays.asList(irData
@@ -572,4 +701,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     }
 
 
+    public void CambioMandoPulsado(View view) {
+
+        imagenfondo.setImageResource(R.drawable.remote_orig_1);
+
+        //lo hacemos animado mejo!!
+
+        final Animation myAnim = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce); // Use bounce interpolator with amplitude 0.2 and frequency 20
+        BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+        myAnim.setInterpolator(interpolator);
+        imagenfondo.startAnimation(myAnim);
+    }
 }
