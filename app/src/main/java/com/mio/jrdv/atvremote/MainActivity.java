@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     //apar cambiar imagen fondo
 
     ImageView imagenfondo;
+    ImageView miniImagenParacambiardeMando;
+    boolean PantallaMandoantiguo=true;
+
 
 
 
@@ -44,6 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_old_remote);
+
+        //To hide AppBar for fullscreen.
+        ActionBar ab = getSupportActionBar();
+        ab.hide();
+
+
 
         //initializae:
 
@@ -55,12 +65,28 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 pm.hasSystemFeature(PackageManager.FEATURE_CONSUMER_IR));
 
 
+
+        //TODO si no tiene ir que salkga cartel y pa fuera
+
+
+        if (!mCIR.hasIrEmitter()){
+
+           // finish();
+
+
+        }
+
         //INITILIZE DE LA IMAGEN PARA DETCET BUTTONS
 
-          imagenfondo = (ImageView) findViewById(R.id.imageoldmando);
+          imagenfondo = (ImageView) findViewById(R.id.imagemando);
         if (imagenfondo != null) {
             imagenfondo.setOnTouchListener(this);
         }
+
+        miniImagenParacambiardeMando=(ImageView)findViewById(R.id.changeremotebutton);
+
+        //al arranacra aranca con el antiguo, no es necesario ponerlo aqui
+
 
         //initializa el sonido
         int sonidomp3 = getResourceID("click", "raw", getApplicationContext());
@@ -126,48 +152,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
 
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////LONG TOUCH..PTE//////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-       /* Button selectButton=(Button)findViewById(R.id.buttonSelect);
-
-        selectButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-
-                Log.d("INFO", "pulsado longclick");
-
-
-                String data = irData.get(0);
-                if (data != null) {
-
-                    Log.d("INFO", "pulsado longclick2");
-
-                    //del string sacamos un array de int:
-
-                    String[] numberStrs = data.split(",");
-                    int[] numbers = new int[numberStrs.length];
-                    for (int i = 0; i < numberStrs.length; i++) {
-                        // Note that this is assuming valid input
-                        // If you want to check then add a try/catch
-                        // and another index for the numbers if to continue adding the others
-                        numbers[i] = Integer.parseInt(numberStrs[i]);
-                    }
-
-
-                    mCIR.transmit(38028, numbers);
-
-                }
-
-                    return false;
-            }
-        });
-
-*/
 
 
     }
@@ -319,14 +303,43 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int nextImage = -1;			// TODO posible usar para efecto irda ?¿?¿resource id of the next image to display
 
         // If we cannot find the imageView, return.
-        ImageView imageView = (ImageView) v.findViewById (R.id.imageoldmando);
+        ImageView imageView = (ImageView) v.findViewById (R.id.imagemando);
         if (imageView == null) return false;
+
+
+  /*
+  //NO LO USO
+
 
         // When the action is Down, see if we should show the "pressed" image for the default image.
         // We do this when the default image is showing. That condition is detectable by looking at the
         // tag of the view. If it is null or contains the resource number of the default image, display the pressed image.
+
+
+
         Integer tagNum = (Integer) imageView.getTag ();
-        int currentResource = (tagNum == null) ? R.drawable.remote_orig_2 : tagNum.intValue ();
+
+        //int currentResource = (tagNum == null) ? R.drawable.remote_orig_2 : tagNum.intValue ();
+
+        //ahora al haber 2 mandos hay 2 posibilidades
+
+
+        if (PantallaMandoantiguo){
+            //estamos con el antiguo
+            int currentResource = (tagNum == null) ? R.drawable.remote_orig_2 : tagNum.intValue ();
+
+
+        }
+
+        else
+        {
+            //estamos en el moderno
+
+            int currentResource = (tagNum == null) ? R.drawable.remote_orig_1 : tagNum.intValue ();
+
+        }
+
+  */
 
         // Now that we know the current resource being displayed we can handle the DOWN and UP events.
 
@@ -336,9 +349,26 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
 
+                //ahora al haber 2 mandos hay 2 posibilidades
+                int touchColor2;
+
+                if (PantallaMandoantiguo){
+                    //estamos con el antiguo
+                      touchColor2 = getHotspotColor (R.id.image_areas_old_mando, evX, evY);
+
+                }
+
+                else
+                {
+                    //estamos en el moderno
+
+                      touchColor2 = getHotspotColor (R.id.image_areas_new_mando, evX, evY);
+
+                }
 
 
-                int touchColor2 = getHotspotColor (R.id.image_areas, evX, evY);
+
+               // int touchColor2 = getHotspotColor (R.id.image_areas, evX, evY);
 
                 if (touchColor2!=Color.TRANSPARENT){
 
@@ -364,17 +394,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 }
 
 
+/*
 
-
+//no se susa creo:
                 if (currentResource == R.drawable.remote_orig_2) {
                     //TODO nextImage = R.drawable.p2_ship_pressed;
                     handledHere = true;
-       /*
-       } else if (currentResource != R.drawable.p2_ship_default) {
-         nextImage = R.drawable.p2_ship_default;
-         handledHere = true;
-       */
+
+
+
+
+
                 } else handledHere = true;
+
+*/
+
+
                 break;
 
             case MotionEvent.ACTION_UP :
@@ -386,7 +421,27 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
 
-                int touchColor = getHotspotColor (R.id.image_areas, evX, evY);
+               // int touchColor = getHotspotColor (R.id.image_areas, evX, evY);
+
+
+                //ahora al haber 2 mandos hay 2 posibilidades
+                int touchColor;
+
+                if (PantallaMandoantiguo){
+                    //estamos con el antiguo
+                    touchColor = getHotspotColor (R.id.image_areas_old_mando, evX, evY);
+
+                }
+
+                else
+                {
+                    //estamos en el moderno
+
+                    touchColor = getHotspotColor (R.id.image_areas_new_mando, evX, evY);
+
+                }
+
+
 
 
                 //se anula el longpress a levantar el deo
@@ -481,18 +536,24 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     LanzarIrdaCode(R.id.buttonMenu);
                 }
 
-
+/*
                 // If the next image is the same as the last image, go back to the default.
                 // toast ("Current image: " + currentResource + " next: " + nextImage);
                 if (currentResource == nextImage) {
                     nextImage = R.drawable.remote_orig_2;
                 }
                 handledHere = true;
+
+ */
                 break;
 
             default:
                 handledHere = false;
         } // end switch
+/*
+
+
+//NO LO USO
 
         if (handledHere) {
 
@@ -502,6 +563,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
         }
         return handledHere;
+
+*/
+
+        return true;//devolveria handledHere
+
     }
 
 
@@ -904,7 +970,30 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
     public void CambioMandoPulsado(View view) {
 
-        imagenfondo.setImageResource(R.drawable.remote_orig_1);
+        if (PantallaMandoantiguo){
+
+            //si es el mando antiguo ponemos el nuevo
+            PantallaMandoantiguo=false;
+
+            imagenfondo.setImageResource(R.drawable.remote_new_1);
+            miniImagenParacambiardeMando.setImageResource(R.drawable.remote_orig_2);
+        }
+
+        else
+        {
+            //si es el nuevo ponemos el antiguo
+            PantallaMandoantiguo=true;
+
+            imagenfondo.setImageResource(R.drawable.remote_orig_2);
+            miniImagenParacambiardeMando.setImageResource(R.drawable.remote_new_1);
+
+
+
+
+        }
+
+
+
 
         //lo hacemos animado mejo!!
 

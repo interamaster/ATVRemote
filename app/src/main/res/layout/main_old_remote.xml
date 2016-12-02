@@ -3,10 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@drawable/fonod_1">
 
     <ImageView
-        android:id="@+id/image_areas"
+        android:id="@+id/image_areas_old_mando"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="fitCenter"
@@ -14,22 +14,33 @@
         android:visibility="invisible"
         />
     <ImageView
-        android:id="@+id/imageoldmando"
+        android:id="@+id/image_areas_new_mando"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/remote_overlay_new_mando_1"
+        android:visibility="invisible"
+        />
+
+
+    <ImageView
+        android:id="@+id/imagemando"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="fitCenter"
         android:src="@drawable/remote_orig_2"
         />
+
     <ImageButton
-        android:id="@+id/helpbutton"
-        android:layout_width="90dp"
+        android:id="@+id/changeremotebutton"
+        android:layout_width="60dp"
         android:layout_height="90dp"
-        android:src="@drawable/remote_orig_1"
+        android:src="@drawable/remote_new_1"
         android:scaleType="fitCenter"
         android:background="@android:color/transparent"
         android:layout_gravity="bottom|right"
 
-        android:layout_margin= "1dp"
+        android:layout_margin= "0dp"
         android:onClick="CambioMandoPulsado" />
 
 
