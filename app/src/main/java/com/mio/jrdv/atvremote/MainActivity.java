@@ -16,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -95,52 +94,38 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         irData.put(
                 R.id.buttonSelect,
-                count2duration(hex2dec("0000 006F 0022 0014 0155 00AC 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0016 0016 0060 0016 0060 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 04C4")));
+              //orig:  count2duration(hex2dec("0000 006F 0022 0014 0155 00AC 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0016 0016 0060 0016 0060 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 04C4")));
+              //asi no hace nada  count2duration(hex2dec("0000 006C 0022 0002 0155 00AC 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0040 0016 0016 0016 0040 0016")));
+                count2duration(hex2dec("0000 006D 0044 0002 0155 00AB 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0500 0155 00AB 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0555 0155 0055 0016 0E55")));
+    
 
         irData.put(
                 R.id.buttonPlay,
                 count2duration(hex2dec("0000 006E 0022 0002 0155 00AC 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0060 0016 0016 0016")));
 
 
-        //añdimo el longclick listener al select button
+        //este es el pattern de dejar dejar pulsada una tecla
+        //le pongo los 4 primero px la fuincion hex2dec lo va a ignorar..
+
+
 
 
         irData.put(
                 0,
-                count2duration(hex2dec("0000 006D 0000 0044 0157 00AC 0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0016 0015 0016 0015 0016 0015 0016 0015 0041 0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40 0157 0055 0015 0E40")));
+                count2duration(hex2dec("0000 006E 0022 0002 0157 0055 0016 0E40")));
+
+
+        //idem reptiedndolo en la misma seq!!
+        //ASI SI FUNCIONA!!!:(EL TIEMPO MAX DE ENVIO ES DE 2 SEGS SI NO DA CRASH:
+
+        irData.put(
+                1,
+                count2duration(hex2dec("0000 006E 0022 0002 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016")));
 
 
 
-        /*
-              0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0016 0015 0016 0015 0016 0015 0016 0015 0041 0015 0041 0015 0016 0015 0041 0015 0016 0015 0016 0015 0016 0015 0016 0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0689
-
-         0000 006D 0000 0044//freq ..ignore
-         0157 00AC//lead in
-         0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0041 0015 0041
-         0015 0041 0015 0041 0015 0041 0015 0016 0015 0016 0015 0016 0015 0016 0015 0041
-         0015 0016 0015 0016 0015 0041 0015 0041 0015 0041 0015 0016 0015 0041 0015 0016
-         0015 0016 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041 0015 0041
-         0015//lead out
-         0689//deberia ser 05F0..LO QUE FALTA A 108 ms (108-67.5)=40ms ..>38000*.0.04= 1520 -->05F0
-
-         se repite
-
-         0157 0055//lead in pero con off de 2.25ms en vez de 4.5 ms (=85.5 -->55
-         0015//lead out
-         0E40    //hasta 110ms en off  (110-11.8125 ms=96,12 -->3648 -->0E40
-
-         y de nuevo:
-
-         0157 0055//lead in pero con off de 2.25ms en vez de 4.5 ms (=85.5 -->
-         0015//lead out
-         0E40    //hasta 110ms en off  (110-11.8125 ms=96,12 -->3648 -->0E40
-         ..
-         y asi hasta que se suelte
-         //de moento simulo que se deja pulsado 10 ciclos...pero no funciona..
 
 
-
-         */
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,16 +174,128 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////// ///////////////////////////////////////////////////////////
+        /////////////////////////////////////////LONGPRESS!!!//////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Put this into the class
     final Handler handler = new Handler();
     Runnable mLongPressed = new Runnable() {
         public void run() {
+
+             /*
+              0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0689
+
+         0000 006D 0000 0044//freq ..ignore
+         0157 00AC//lead in
+         0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040  01110111=87
+         0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040  11100001=EE
+         0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016  00111010=3A
+         0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040  01111111=7F
+         0016//lead out
+         0689//deberia ser 05F0..LO QUE FALTA A 108 ms (108-67.5)=40ms ..>38000*.0.04= 1520 -->05F0
+
+         se repite
+
+         0157 0055//lead in pero con off de 2.25ms en vez de 4.5 ms (=85.5 -->55
+         0016//lead out
+         0E40    //hasta 110ms en off  (110-11.8125 ms=96,12 -->3648 -->0E40
+
+         y de nuevo:
+
+         0157 0055//lead in pero con off de 2.25ms en vez de 4.5 ms (=85.5 -->
+         0016//lead out
+         0E40    //hasta 110ms en off  (110-11.8125 ms=96,12 -->3648 -->0E40
+         ..
+         y asi hasta que se suelte
+         //de moento simulo que se deja pulsado 10 ciclos...pero no funciona..
+
+
+
+         */
+
+
+            //1º)iniciamos variables
+
+
             longpressed = true;
-            //TODO Code for long click
+
             Log.d("INFO","iniciado longpress!!");
+
+            int suma=0;
+
+
+            //cramos el pattern de repetir
+
+
+            String datarepetir = irData.get(1);
+
+
+                //del string sacamos un array de int:
+
+                String[] numberStrsrepetir = datarepetir.split(",");
+                int[] numbersrepe = new int[numberStrsrepetir.length];
+                for(int i = 0;i < numberStrsrepetir.length;i++) {
+                    // Note that this is assuming valid input
+                    // If you want to check then add a try/catch
+                    // and another index for the numbers if to continue adding the others
+                    numbersrepe[i] = Integer.parseInt(numberStrsrepetir[i]);
+                    suma=suma+numbersrepe[i];
+                }
+            Log.d("INFO","la su8ma en milisecs: "+suma);
+
+                //2º)lanzamos la seq normal:
+
+
+            String data = irData.get(R.id.buttonSelect);
+            if (data != null) {
+
+                Log.d("INFO", "pulsado SELECT NORMAL");
+
+                //del string sacamos un array de int:
+
+                String[] numberStrs = data.split(",");
+                int[] numbers = new int[numberStrs.length];
+                for(int i = 0;i < numberStrs.length;i++)
+                {
+                    // Note that this is assuming valid input
+                    // If you want to check then add a try/catch
+                    // and another index for the numbers if to continue adding the others
+                    numbers[i] = Integer.parseInt(numberStrs[i]);
+                }
+
+
+
+
+                mCIR.transmit(38028,numbers);
+
+
+
+                //segun esto la seiguiente lineaa ejecutar es la correcta:
+
+                /*
+                    https://developer.android.com/reference/android/hardware/ConsumerIrManager.html
+                	transmit(int carrierFrequency, int[] pattern)
+                    Transmit an infrared pattern
+
+                                This method is synchronous; when it returns the pattern has been transmitted.
+
+                 */
+            }
+
+
+//con el bucle for no funciona y tarda casi 1 seg /seq en ves de 110ms!!!
+           // for (int i=0;i<40;i++){
+
+                //mientras sea true (lo sera hasta q se suelte:
+
+                Log.d("INFO","reptiendo en longpress");
+
+                mCIR.transmit(38028,numbersrepe);
+
+           // }
+
+
+
 
         }
     };
@@ -287,6 +384,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 // Use image_areas to determine which region the user touched.
 
 
+
+
                 int touchColor = getHotspotColor (R.id.image_areas, evX, evY);
 
 
@@ -314,6 +413,10 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     //TODO nextImage = R.drawable.p2_ship_alien;
                     Log.d("INFO", "pulsado arriba");
 
+                    //ejecutamos el codigo:
+                    LanzarIrdaCode(R.id.buttonUp);
+
+
                 }
                 else if (ct.closeMatch (Color.GREEN, touchColor, tolerance))
 
@@ -321,17 +424,27 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                    //TODO  nextImage = R.drawable.p2_ship_powered;
                     Log.d("INFO", "pulsado abajo");
 
+                    //ejecutamos el codigo:
+                    LanzarIrdaCode(R.id.buttonDown);
+
                 }
                 else if (ct.closeMatch (Color.BLACK, touchColor, tolerance))
                 {
                     //TODO nextImage = R.drawable.p2_ship_no_star;
                     Log.d("INFO", "pulsado derecha");
+
+                    //ejecutamos el codigo:
+                    LanzarIrdaCode(R.id.buttonRight);
                 }
                 else if (ct.closeMatch (Color.YELLOW, touchColor, tolerance))
                 {
                    //TODO  nextImage = R.drawable.p2_ship_default;
 
                     Log.d("INFO", "pulsado izqda");
+
+
+                    //ejecutamos el codigo:
+                    LanzarIrdaCode(R.id.buttonLeft);
                 }
 
                 else if (ct.closeMatch (Color.WHITE, touchColor, tolerance))
@@ -340,9 +453,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                     if (!longpressed){
                         //veiamos deun longpressed no ejectuamos el manda la seq de SELECT!!
-                        Log.d("INFO", "pulsado play/pause");
+                        Log.d("INFO", "pulsado PLAY");
                         //lo pnemos de nuevo a false para detectar nuvo longpress
                         longpressed=false;
+
+
+                        //ejecutamos el codigo:
+                        LanzarIrdaCode(R.id.buttonPlay);
                     }
 
 
@@ -359,6 +476,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 {
                     //TODO nextImage = R.drawable.p2_ship_default;
                     Log.d("INFO", "pulsado menu");
+
+                    //ejecutamos el codigo:
+                    LanzarIrdaCode(R.id.buttonMenu);
                 }
 
 
@@ -426,7 +546,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
-        v.vibrate(500);
+        v.vibrate(20);
     }
 
 
@@ -530,6 +650,87 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
         }
+
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////BUTTON DETECT NEW///////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public void LanzarIrdaCode(int teclapulsada){
+
+        String data = irData.get(teclapulsada);
+        if (data != null) {
+
+            Log.d("INFO", "pulsado BOTON");
+
+
+            switch (teclapulsada){
+
+                case R.id.buttonDown:{
+                    Log.d("INFO", "pulsado ABAJO");
+                    break;
+
+                }
+                case R.id.buttonUp:{
+                    Log.d("INFO", "pulsado ARRIBA");
+                    break;
+
+                }
+                case R.id.buttonRight:{
+                    Log.d("INFO", "pulsado DERECHA");
+                    break;
+
+                }
+                case R.id.buttonLeft:{
+                    Log.d("INFO", "pulsado IZQDA");
+                    break;
+
+                }
+                case R.id.buttonMenu:{
+                    Log.d("INFO", "pulsado MENU");
+                    break;
+
+                }
+                case R.id.buttonPlay:{
+                    Log.d("INFO", "pulsado PLAY");
+                    break;
+
+                }
+                case R.id.buttonSelect:{
+                    Log.d("INFO", "pulsado SELECT");
+                    break;
+
+                }
+
+                default:
+                break;
+
+            }
+
+
+
+
+
+            //del string sacamos un array de int:
+
+            String[] numberStrs = data.split(",");
+            int[] numbers = new int[numberStrs.length];
+            for(int i = 0;i < numberStrs.length;i++)
+            {
+                // Note that this is assuming valid input
+                // If you want to check then add a try/catch
+                // and another index for the numbers if to continue adding the others
+                numbers[i] = Integer.parseInt(numberStrs[i]);
+            }
+
+
+
+
+            mCIR.transmit(38028,numbers);
+
+        }
+
 
     }
 
