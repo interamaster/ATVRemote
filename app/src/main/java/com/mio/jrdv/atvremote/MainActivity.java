@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -92,6 +93,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         int sonidomp3 = getResourceID("click", "raw", getApplicationContext());
         mp = MediaPlayer.create(MainActivity.this, sonidomp3);
 
+
+        //nueva funcion para generar code!!
+
+       // int [] mycode=CodeFromHex("6107","87EE");
+
+
+
         //rellenamos los valores de cada button
 
         irData = new SparseArray<String>();
@@ -123,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
               //orig:  count2duration(hex2dec("0000 006F 0022 0014 0155 00AC 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0060 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0060 0016 0060 0016 0060 0016 0016 0016 0060 0016 0016 0016 0060 0016 0060 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 0590 0155 0056 0016 04C4")));
               //asi no hace nada  count2duration(hex2dec("0000 006C 0022 0002 0155 00AC 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0040 0016 0016 0016 0040 0016")));
                 count2duration(hex2dec("0000 006D 0044 0002 0155 00AB 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0500 0155 00AB 0016 0016 0016 0040 0016 0040 0016 0040 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0040 0016 0016 0016 0040 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0040 0016 0555 0155 0055 0016 0E55")));
-    
+
 
         irData.put(
                 R.id.buttonPlay,
@@ -147,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         irData.put(
                 1,
                 count2duration(hex2dec("0000 006E 0022 0002 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016 0E40 0157 0055 0016")));
+
 
 
 
@@ -197,6 +206,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
          */
 
+            /*
+            8918,2210,572,94848,8918,2210,572,94848,8918,2210,572,94848,8918,2210,572,94848,8918,
+            2210,572,94848,8918,2210,572,94848,8918,2210,572,94848,8918,2210,572,94848,8918,2210,
+            572,94848,8918,2210,572,94848,8918,2210,572,94848,8918,2210,572,94848,8918,2210,572,
+            94848,8918,2210,572,94848,8918,2210,572,94848,8918,2210,572,94848,8918,2210,572,
+            94848,8918,2210,572,94848,8918,2210,572
+             */
 
             //1º)iniciamos variables
 
@@ -212,6 +228,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
             String datarepetir = irData.get(1);
+
+
+
 
 
                 //del string sacamos un array de int:
@@ -283,6 +302,176 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         }
     };
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////funciona para generar code a partir HEX///////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    public int[] CodeFromHex(String HexCOde1,String Final){
+
+        //tenemos que recibir un code de estos:
+        //6107  donde 61 es el remote id//07 es el code a lanzar
+        // y
+        // 87EE //y 87EE es el final del code!!
+
+
+
+
+
+        String inicio=hexToBin(HexCOde1);//110000100000111 falta un 0!!! al principio y va de derecha a izqda
+        String finalCode=new BigInteger(Final, 16).toString(2);//1000011111101110 este si tine los 16!!!
+
+        if (inicio.length()!=16 ){
+            inicio="0"+inicio;
+
+        }
+
+        //luego lo innvertimos px el LSB es el de la derecha(el final!!!
+        String inicioinvertido=new StringBuilder(inicio).reverse().toString();
+
+        String finalinvertido=new StringBuilder(finalCode).reverse().toString();
+
+
+        //sumamos los 2:
+
+        String FINALOK=finalinvertido+inicioinvertido;
+
+
+
+
+        String[] FINALOKEnBytes = FINALOK.split("");
+        //borramos el primero px es "" ?¿?npi
+
+         String[] NewFINALOKEnBytes=removeElement(FINALOKEnBytes,0);
+
+
+
+
+        //lo convertimos en un pattern:
+
+
+        int[] numbers = new int[(NewFINALOKEnBytes.length)*2];//*2 para poner el delay de cada numero!!!
+        int j=0;//para sacar los 32 valores correctos
+        for(int i = 0;i < (NewFINALOKEnBytes.length)*2;i=i+2)
+        {
+            // Note that this is assuming valid input
+            // If you want to check then add a try/catch
+            // and another index for the numbers if to continue adding the others
+            //numbers[i] = Integer.parseInt(numberStrs[i]);
+
+
+            //los 1 son ON:560microsecs    y OFF:(2250-560)=1690microsec
+            //los 0 son ON:560 microsecs   y OFF:560 microsecs
+
+
+            //pattern	int: The alternating on/off pattern in microseconds to transmit.
+
+
+            numbers[i]=560;//tiempo siempre es ele mismo!!
+
+            if (NewFINALOKEnBytes[j].equals("1")){
+                //es un 1
+                //asi no funciona!!
+                //numbers[i+1]=1690;///delay en OFF
+
+                //en pronot CODE los delay spon de 2496
+                numbers[i+1]=2496;///delay en OFF
+
+
+            }
+            else
+            {
+                //es un 0
+
+                numbers[i+1]=560;//delay en OFF
+            }
+
+            j++;
+
+        }
+
+
+
+
+        //LEAD IN:el code corecto simepre empieza con ON de 9ms y un OFF de 4.5ms:
+        //se lo añadimos al codigo
+
+        int[] newArraymasinicio = new int[numbers.length + 2];
+        for (int index = 0; index < numbers.length; index++) {
+            newArraymasinicio[index+2] = numbers[index];
+        }
+
+        newArraymasinicio[0] = 9000;
+        newArraymasinicio[1] = 4500;
+
+
+        // LEAD OUT :ysiempre acaba con un ON de 9ms y un OFF de 2.25ms
+
+        int[] newArrayFINALOK = new int[newArraymasinicio.length + 2];
+        for (int index = 0; index < newArraymasinicio.length; index++) {
+            newArrayFINALOK[index] = newArraymasinicio[index];
+        }
+
+       // newArrayFINALOK[newArrayFINALOK.length - 2] = 9000;
+       // newArrayFINALOK[newArrayFINALOK.length - 1] = 2250;
+
+
+        //COMO ENPRONOT CODE:
+
+        newArrayFINALOK[newArrayFINALOK.length - 2] = 560;
+        newArrayFINALOK[newArrayFINALOK.length - 1] = 1;//NO PÙEDE SER 0 DA CRASH!!
+
+
+        Log.d("INFO", "esto queda asi "+numbers.toString());//OK!!!!!
+
+
+        /*
+        EN PRONTO CODE los 1 en OFF son de 2496!!!(en vez de los 1690 del protocolo!!) ¿?¿?¿
+        8866,4472,
+        572,572,572,2496,572,2496,572,2496,572,572,572,2496,572,2496,572,2496,572,2496,572,2496,572,2496,
+        572,572,572,572,572,572,572,572,572,2496,572,572,572,572,572,2496,
+        572,572,572,572,572,572,572,572,572,572,572,572,572,572,572,572,572,572,572,572,572,2496,572,2496,572,572,
+        572,
+         */
+
+        /*
+
+        EN PRONTO CODE:UP:
+        572,572,572,2496,572,2496,572,2496,572,572,572,2496,572,2496,572,2496
+        ,572,2496,572,2496,572,2496,572,572,572,572,572,572,572,572,572,2496,
+        572,2496,572,2496,572,572,572,2496,572,572,572,572,572,572,572,572,572
+        ,572,572,572,572,572,572,572,572,572,572,2496,572,2496,572,572,572,
+
+        ESTO SON 32 BITS QUE DAN:METIENDOLOS EN LA CALCULADORA DE DERECHA A IZQDA:
+        0-1-1-1--0-1-1-1-1-1-0-0-0-0-1-1-1-0-1-0-0-0-0-0-0-0-0-0-1-1-0
+        60-0B-87-EE
+        Y TERMINAN CON UN 572 SOLO!!!!
+         */
+
+
+
+
+
+        return newArrayFINALOK;
+    }
+
+
+
+    static String hexToBin(String s) {
+        return new BigInteger(s, 16).toString(2);
+    }
+
+
+
+    public static String[] removeElement(String[] original, int element){
+        String[] n = new String[original.length - 1];
+        System.arraycopy(original, 0, n, 0, element );
+        System.arraycopy(original, element+1, n, element, original.length - element-1);
+        return n;
+    }
+
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -470,6 +659,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                     //ejecutamos el codigo:
                     LanzarIrdaCode(R.id.buttonUp);
+
+
+                    //nueva funcion para generar code!!
+
+                    int [] mycode=CodeFromHex("600B","87EE");
 
 
                 }
@@ -726,6 +920,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public void LanzarIrdaCode(int teclapulsada){
 
         String data = irData.get(teclapulsada);
+
+
+        //nueva funcion para generar code!!
+
+        int [] mycode=new int[68];
+
         if (data != null) {
 
             Log.d("INFO", "pulsado BOTON");
@@ -735,36 +935,46 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                 case R.id.buttonDown:{
                     Log.d("INFO", "pulsado ABAJO");
+
+                    //nueva funcion para generar code!!
+
+                     mycode=CodeFromHex("600D","87EE");
                     break;
 
                 }
                 case R.id.buttonUp:{
                     Log.d("INFO", "pulsado ARRIBA");
+                    mycode=CodeFromHex("600B","87EE");
                     break;
 
                 }
                 case R.id.buttonRight:{
                     Log.d("INFO", "pulsado DERECHA");
+                    mycode=CodeFromHex("6007","87EE");
                     break;
 
                 }
                 case R.id.buttonLeft:{
                     Log.d("INFO", "pulsado IZQDA");
+                    mycode=CodeFromHex("6008","87EE");
                     break;
 
                 }
                 case R.id.buttonMenu:{
                     Log.d("INFO", "pulsado MENU");
+                    mycode=CodeFromHex("6002","87EE");
                     break;
 
                 }
                 case R.id.buttonPlay:{
                     Log.d("INFO", "pulsado PLAY");
+                    mycode=CodeFromHex("6004","87EE");
                     break;
 
                 }
                 case R.id.buttonSelect:{
                     Log.d("INFO", "pulsado SELECT");
+                   mycode=CodeFromHex("6004","87EE");
                     break;
 
                 }
@@ -791,9 +1001,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             }
 
 
+            //nueva funcion para generar code!!
 
 
-            mCIR.transmit(38028,numbers);
+
+
+           // mCIR.transmit(38028,numbers);
+            mCIR.transmit(38028,mycode);
 
         }
 
