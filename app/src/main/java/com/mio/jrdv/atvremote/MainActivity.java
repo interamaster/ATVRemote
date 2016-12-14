@@ -1,6 +1,8 @@
 package com.mio.jrdv.atvremote;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,6 +13,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
@@ -18,6 +21,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -43,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     boolean PantallaMandoantiguo=true;
 
 
+    //para ekl anuancio
+
+    private AdView mAdView;
 
 
     @Override
@@ -53,6 +63,27 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         //To hide AppBar for fullscreen.
         ActionBar ab = getSupportActionBar();
         ab.hide();
+
+
+        //ads initialize:
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, "ca-app-pub-6700746515260621~5489924594");
+
+
+         mAdView = (AdView) findViewById(R.id.adView);
+        //TODO poner para modo final:
+        AdRequest adRequest = new AdRequest.Builder().build();
+        //para probar:
+/*
+        AdRequest adRequest = new AdRequest.Builder()
+                //.addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                // Check the LogCat to get your test device ID
+                 .addTestDevice("5B700828CEDE278B71E610C31C1E433E")
+                .build();
+*/
+
+        mAdView.loadAd(adRequest);
 
 
 
@@ -73,6 +104,21 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         if (!mCIR.hasIrEmitter()){
 
            // finish();
+
+
+            AlertDialog alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.myDialog)).create();
+            alertDialog.setTitle("ATTENTION!!");
+            alertDialog.setMessage("NO IR FOUND ON THIS DEVICE!!!");
+            alertDialog.setIcon(R.mipmap.ic_launcher);
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                           // finish();
+
+                        }
+                    });
+            alertDialog.show();
 
 
         }
@@ -1005,9 +1051,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
 
+            if (mCIR.hasIrEmitter()){
+                // mCIR.transmit(38028,numbers);
+                mCIR.transmit(38028,mycode);
 
-           // mCIR.transmit(38028,numbers);
-            mCIR.transmit(38028,mycode);
+            }
+
+
 
         }
 
@@ -1215,5 +1265,31 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
         myAnim.setInterpolator(interpolator);
         imagenfondo.startAnimation(myAnim);
+    }
+
+
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 }

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ATV Remote</string>
+
+
+    <!-- AdMob ad unit IDs -->
+    <string name="banner_ad_unit_id">ca-app-pub-6700746515260621/6116889798</string>
+
+
 </resources>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "953600995212",
+    "firebase_url": "https://appletv-remote.firebaseio.com",
+    "project_id": "appletv-remote",
+    "storage_bucket": "appletv-remote.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953600995212:android:02b7ecd7245d43c0",
+        "android_client_info": {
+          "package_name": "com.mio.jrdv.atvremote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953600995212-42onpde8a888ur2j4ib7gftdgr4ncdua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTQNB74sDr5dbuB4yEq0ls-47SZaStel0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
