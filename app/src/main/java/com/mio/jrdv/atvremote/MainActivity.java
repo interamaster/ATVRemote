@@ -629,20 +629,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 }
 
 
-/*
+                Log.d("info","eje x   tocado :"+evX +" e y :"+evY);
+                if (evY<170){
 
-//no se susa creo:
-                if (currentResource == R.drawable.remote_orig_2) {
-                    //TODO nextImage = R.drawable.p2_ship_pressed;
-                    handledHere = true;
+                    //estoy pulsando en el anuncio!!
+                    return false;
 
-
-
-
-
-                } else handledHere = true;
-
-*/
+                }
 
 
                 break;
@@ -691,6 +684,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     return false;
                 }
 
+
+
+                if (evY<170){
+
+                    //estoy pulsando en el anuncio!!
+                    return false;
+
+                }
+
                 // Compare the touchColor to the expected values. Switch to a different image, depending on what color was touched.
                 // Note that we use a Color Tool object to test whether the observed color is close enough to the real color to
                 // count as a match. We do this because colors on the screen do not match the map exactly because of scaling and
@@ -717,7 +719,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                 {
                    //TODO  nextImage = R.drawable.p2_ship_powered;
-                    Log.d("INFO", "pulsado abajo");
+                    //Log.d("INFO", "pulsado abajo");
 
                     //ejecutamos el codigo:
                     LanzarIrdaCode(R.id.buttonDown);
@@ -726,7 +728,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 else if (ct.closeMatch (Color.BLACK, touchColor, tolerance))
                 {
                     //TODO nextImage = R.drawable.p2_ship_no_star;
-                    Log.d("INFO", "pulsado derecha");
+                    //Log.d("INFO", "pulsado derecha");
 
                     //ejecutamos el codigo:
                     LanzarIrdaCode(R.id.buttonRight);
@@ -735,7 +737,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 {
                    //TODO  nextImage = R.drawable.p2_ship_default;
 
-                    Log.d("INFO", "pulsado izqda");
+                    //Log.d("INFO", "pulsado izqda");
 
 
                     //ejecutamos el codigo:
@@ -759,7 +761,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
 
                     else {
-                        Log.d("INFO", "NO SE PROCEDE A SELECT/PLAY/PAUSE POR VENOR DE LONGPRESS");
+                        //Log.d("INFO", "NO SE PROCEDE A SELECT/PLAY/PAUSE POR VENOR DE LONGPRESS");
 
                         //pero al sltar de nuevo lo poenos a
                         longpressed=false;
@@ -770,7 +772,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 else if (ct.closeMatch (Color.argb(1,255,64,255), touchColor, tolerance))//este es el color que detecta en vez del magenta..
                 {
                     //TODO nextImage = R.drawable.p2_ship_default;
-                    Log.d("INFO", "pulsado menu");
+                    //Log.d("INFO", "pulsado menu");
 
                     //ejecutamos el codigo:
                     LanzarIrdaCode(R.id.buttonMenu);
@@ -820,13 +822,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     public int getHotspotColor (int hotspotId, int x, int y) {
         ImageView img = (ImageView) findViewById (hotspotId);
         if (img == null) {
-            Log.d ("ImageAreasActivity", "Hot spot image not found");
+            //Log.d ("ImageAreasActivity", "Hot spot image not found");
             return 0;
         } else {
             img.setDrawingCacheEnabled(true);
             Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
             if (hotspots == null) {
-                Log.d ("ImageAreasActivity", "Hot spot bitmap was not created");
+                //Log.d ("ImageAreasActivity", "Hot spot bitmap was not created");
                 return 0;
             }
 
@@ -861,9 +863,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         if (ResourceID == 0) {
 
 
-            //en vez de una excepcion que lo ponga en el log solo
+            //en vez de una excepcion que lo ponga en el //Log solo
 
-            Log.e("INFO", "ojo no existe el resource: " + resName);
+            //Log.e("INFO", "ojo no existe el resource: " + resName);
             return 0;
 
 
@@ -921,8 +923,8 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
             durationPattern += s + ",";
         }
 
-        Log.d("INFO", "Frequency: " + frequency);
-        Log.d("INFO", "Duration Pattern: " + durationPattern);
+        //Log.d("INFO", "Frequency: " + frequency);
+        //Log.d("INFO", "Duration Pattern: " + durationPattern);
 
         return durationPattern;
     }
@@ -933,7 +935,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String data = irData.get(view.getId());
         if (data != null) {
 
-            Log.d("INFO", "pulsado MENU");
+            //Log.d("INFO", "pulsado MENU");
 
             //del string sacamos un array de int:
 
@@ -974,13 +976,13 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         if (data != null) {
 
-            Log.d("INFO", "pulsado BOTON");
+            //Log.d("INFO", "pulsado BOTON");
 
 
             switch (teclapulsada){
 
                 case R.id.buttonDown:{
-                    Log.d("INFO", "pulsado ABAJO");
+                    //Log.d("INFO", "pulsado ABAJO");
 
                     //nueva funcion para generar code!!
 
@@ -989,37 +991,37 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
                 }
                 case R.id.buttonUp:{
-                    Log.d("INFO", "pulsado ARRIBA");
+                    //Log.d("INFO", "pulsado ARRIBA");
                     mycode=CodeFromHex("600B","87EE");
                     break;
 
                 }
                 case R.id.buttonRight:{
-                    Log.d("INFO", "pulsado DERECHA");
+                    //Log.d("INFO", "pulsado DERECHA");
                     mycode=CodeFromHex("6007","87EE");
                     break;
 
                 }
                 case R.id.buttonLeft:{
-                    Log.d("INFO", "pulsado IZQDA");
+                    //Log.d("INFO", "pulsado IZQDA");
                     mycode=CodeFromHex("6008","87EE");
                     break;
 
                 }
                 case R.id.buttonMenu:{
-                    Log.d("INFO", "pulsado MENU");
+                    //Log.d("INFO", "pulsado MENU");
                     mycode=CodeFromHex("6002","87EE");
                     break;
 
                 }
                 case R.id.buttonPlay:{
-                    Log.d("INFO", "pulsado PLAY");
+                    //Log.d("INFO", "pulsado PLAY");
                     mycode=CodeFromHex("6004","87EE");
                     break;
 
                 }
                 case R.id.buttonSelect:{
-                    Log.d("INFO", "pulsado SELECT");
+                    //Log.d("INFO", "pulsado SELECT");
                    mycode=CodeFromHex("6004","87EE");
                     break;
 
@@ -1073,7 +1075,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String data = irData.get(view.getId());
         if (data != null) {
 
-            Log.d("INFO", "pulsado abajo");
+            //Log.d("INFO", "pulsado abajo");
 
             //del string sacamos un array de int:
 
@@ -1103,7 +1105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String data = irData.get(view.getId());
         if (data != null) {
 
-            Log.d("INFO", "pulsado arriba");
+            //Log.d("INFO", "pulsado arriba");
 
             //del string sacamos un array de int:
 
@@ -1131,7 +1133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String data = irData.get(view.getId());
         if (data != null) {
 
-            Log.d("INFO", "pulsado left");
+            //Log.d("INFO", "pulsado left");
 
             //del string sacamos un array de int:
 
@@ -1157,7 +1159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String data = irData.get(view.getId());
         if (data != null) {
 
-            Log.d("INFO", "pulsado derecha");
+            //Log.d("INFO", "pulsado derecha");
 
             //del string sacamos un array de int:
 
@@ -1183,7 +1185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String data = irData.get(view.getId());
         if (data != null) {
 
-            Log.d("INFO", "pulsado select");
+            //Log.d("INFO", "pulsado select");
 
             //del string sacamos un array de int:
 
@@ -1210,7 +1212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         String data = irData.get(view.getId());
         if (data != null) {
 
-            Log.d("INFO", "pulsado play");
+            //Log.d("INFO", "pulsado play");
 
             //del string sacamos un array de int:
 
