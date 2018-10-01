@@ -14,6 +14,8 @@ import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -30,6 +33,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+
+
+
+///v 1.0.4 añadida privacy policy de los cojojnes
+
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener{
 
@@ -65,6 +74,15 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         ab.hide();
 
 
+
+        //privacypolicy linkl
+
+
+        TextView textView =(TextView)findViewById(R.id.privacypolicy);
+        textView.setClickable(true);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        String text = "<a href='https://jrdvsoftblog.wordpress.com/2018/10/01/privacy-policy/'> Privacy policy </a>";
+        textView.setText(Html.fromHtml(text));
         //ads initialize:
 
         // Initialize the Mobile Ads SDK.

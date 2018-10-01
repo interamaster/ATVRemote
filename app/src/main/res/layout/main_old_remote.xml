@@ -52,5 +52,14 @@
         android:layout_margin= "0dp"
         android:onClick="CambioMandoPulsado" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/privacypolicy"
+        android:layout_gravity="bottom|left"
+        android:textSize="14sp"
+
+        />
+
 
 </FrameLayout>
