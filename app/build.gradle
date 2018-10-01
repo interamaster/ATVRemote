@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion "23.0.2"
     defaultConfig {
         applicationId "com.mio.jrdv.atvremote"
         minSdkVersion 19
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 4
         versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
